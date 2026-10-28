@@ -16,7 +16,7 @@
         }
 
         .volleyball-court {
-            background-color: #f39c12; /* Cor da quadra estilo madeira/laranja */
+            background-color: #f39c12;
             border: 4px solid #ffffff;
             position: relative;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
@@ -27,7 +27,7 @@
             overflow: hidden;
         }
         .court-out-of-bounds {
-            background-color: #1e3a8a; /* Azul fora de quadra */
+            background-color: #1e3a8a; 
             padding: 16px;
             border-radius: 12px;
         }
@@ -251,8 +251,6 @@
         let ballPossession = 'us';
         let useLibero = true;
 
-        // key -> elemento DOM do boneco (mantém o MESMO elemento entre atualizações,
-        // permitindo que a transição CSS anime o deslocamento)
         const tokenElements = {};
 
         let players = [
@@ -325,7 +323,6 @@
             currentRotationIndex = 0;
             isAnimatedToTactical = false;
 
-            // Limpa os bonecos antigos para não sobrarem elementos de outro sistema
             document.getElementById('playersLayer').innerHTML = '';
             Object.keys(tokenElements).forEach(k => delete tokenElements[k]);
 
@@ -413,7 +410,7 @@
                     }
                 }
 
-                player.key = playerIndex; // identidade estável do boneco
+                player.key = playerIndex; 
                 activeCourt.push(player);
             });
             activeCourt.forEach(p => {
@@ -485,7 +482,6 @@
             const playersLayer = document.getElementById('playersLayer');
             const animationSvg = document.getElementById('animationSvg');
 
-            // NÃO limpamos o playersLayer: os bonecos são reaproveitados para a transição funcionar
             animationSvg.innerHTML = '';
 
             const btnText = document.getElementById('animateBtnText');
@@ -522,7 +518,6 @@
                     animationSvg.appendChild(circle);
                 }
 
-                // Reaproveita o elemento existente (ou cria na primeira vez)
                 let token = tokenElements[p.key];
                 if (!token) {
                     token = document.createElement('div');
@@ -536,7 +531,6 @@
                 const isHighlight = target.isInfiltrating;
                 const ringEffect = isHighlight ? 'pulse-ring ring-4 ring-yellow-400 font-extrabold scale-110 z-30' : '';
 
-                // Atualiza só o conteúdo; o elemento continua o mesmo
                 token.innerHTML = `
                     <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full ${p.color} text-white font-bold text-xs flex flex-col items-center justify-center shadow-2xl border-2 border-white transition-transform transform group-hover:scale-110 ${ringEffect}">
                         <span class="text-[11px] leading-tight font-black">${p.role}</span>
@@ -549,7 +543,6 @@
                     </div>
                 `;
 
-                // Mudar left/top no MESMO elemento dispara a transição CSS
                 token.style.left = `${target.x}%`;
                 token.style.top = `${target.y}%`;
             });
